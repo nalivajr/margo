@@ -8,7 +8,6 @@ import android.util.Log
 import by.nalivajr.margo.annonatations.AutoInjectActivity
 import by.nalivajr.margo.exceptions.NotAnnotatedActivityUsedException
 import by.nalivajr.margo.tools.Margo
-import by.nalivajr.margo.tools.MargoJava
 
 /**
  * Created by Sergey Nalivko.
@@ -18,7 +17,7 @@ class MargoActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         try {
-            Margo.setContentView(activity)
+            Margo.autoBind(activity)
         } catch (e: NotAnnotatedActivityUsedException) {
             Log.i(TAG, "Activity ${activity.javaClass.name} can't be initialized automatically as it is not annotated wits ${AutoInjectActivity::class.java.name}")
         }

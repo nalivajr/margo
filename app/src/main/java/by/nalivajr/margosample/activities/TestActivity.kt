@@ -6,10 +6,7 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
-import by.nalivajr.margo.annonatations.BindView
-import by.nalivajr.margo.annonatations.InnerView
-import by.nalivajr.margo.annonatations.OnCheckChanged
-import by.nalivajr.margo.annonatations.OnClick
+import by.nalivajr.margo.annonatations.*
 import by.nalivajr.margo.tools.Margo
 import by.nalivajr.margosample.R
 
@@ -27,10 +24,15 @@ class TestActivity : AppCompatActivity() {
     @InnerView(R.id.cb_box)
     private lateinit var box: CheckBox
 
+    @Saveable
+    private var secondViewText: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
         Margo.bind(this)
+        Margo.restoreState(this, savedInstanceState)
+        secondViewText?.let { second.text = it }
     }
 
     @OnClick(R.id.tv_second)
@@ -51,10 +53,17 @@ class TestActivity : AppCompatActivity() {
     @OnClick(value = [(R.id.tv_first), (R.id.tv_second)])
     private fun onSecondClicked(v: TextView) {
         Toast.makeText(this, "${v.text} clicked", Toast.LENGTH_SHORT).show()
+        secondViewText = "${v.text} clicked!"
+        v.text = secondViewText
     }
 
     @OnCheckChanged(value = [(R.id.cb_box)])
     private fun onCheckBox(v: View, checked: Boolean) {
         Toast.makeText(this, "On Check changed -> $checked", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        Margo.saveState(this, outState);
     }
 }

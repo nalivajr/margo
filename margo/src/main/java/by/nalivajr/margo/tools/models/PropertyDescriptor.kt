@@ -1,9 +1,9 @@
-package by.nalivajr.margo.tools
+package by.nalivajr.margo.tools.models
 
 import java.lang.reflect.Field
 
 
-internal class JavaPropertyDescriptor (
+internal class PropertyDescriptor(
         val id: Int,
         val required: Boolean = false,
         val field: Field
