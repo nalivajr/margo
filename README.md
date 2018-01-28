@@ -19,4 +19,6 @@ In source code you can find two modules: margo and app. Module `margo` contains 
 ```
 
 ### Gradle
-`compile 'com.github.nalivajr:margo:1.0.1-beta'`
+```Gradle
+compile 'com.github.nalivajr:margo:1.0.1-beta'
+```
