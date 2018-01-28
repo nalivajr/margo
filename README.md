@@ -12,7 +12,7 @@ In source code you can find two modules: margo and app. Module `margo` contains 
 `<dependency>`
 	`<groupId>com.github.nalivajr</groupId>`
 	`<artifactId>margo</artifactId>`
-	`<version>1.0.0-beta</version>`
+	`<version>1.0.1-beta</version>`
 `</dependency>`
 
 ### Gradle
