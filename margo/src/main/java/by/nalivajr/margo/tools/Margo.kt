@@ -7,6 +7,8 @@ import android.os.Binder
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.support.annotation.LayoutRes
+import android.support.annotation.NonNull
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -28,6 +30,38 @@ object Margo {
 
     private val listenerAnnotations = arrayOf(OnClick::class, OnTextChanged::class, OnCheckChanged::class)
     private val TAG = Margo::class.java.name
+
+    /**
+     * Inflates and returns inflated view, without attaching it to any view group
+     */
+    @Suppress("UNCHECKED_CAST")
+    fun <T : View> inflate(context: Context, @LayoutRes layoutId: Int)
+            = LayoutInflater.from(context).inflate(layoutId, null) as T
+
+    /**
+     * Inflates and returns inflated view, allowing attach it to parent view group
+     */
+    @Suppress("UNCHECKED_CAST")
+    fun <T : View> inflate(@NonNull parent: ViewGroup, @LayoutRes layoutId: Int, attachToRoot: Boolean = false)
+            = LayoutInflater.from(parent.context).inflate(layoutId, parent, attachToRoot) as T
+
+    /**
+     * Inflates and returns inflated view, allowing attach it to parent view group and bind it
+     */
+    fun <T : View> inflateAndBind(@NonNull parent: ViewGroup, @LayoutRes layoutId: Int, attachToRoot: Boolean = false) : T {
+        val view : T = inflate(parent, layoutId, attachToRoot)
+        bind(view)
+        return view
+    }
+
+    /**
+     * Inflates and returns inflated view, allowing attach it to parent view group and bind it
+     */
+    fun <T : View> inflateAndBind(@NonNull context: Context, @LayoutRes layoutId: Int) : T {
+        val view : T = inflate(context, layoutId)
+        bind(view)
+        return view
+    }
 
     /**
      * Finds and injects all views, annotated with [InnerView] or [BindView]

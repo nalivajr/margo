@@ -32,4 +32,10 @@
         android:textSize="20sp"
         android:text="View 2!"/>
 
+    <by.nalivajr.margosample.views.TestInflateView
+        android:id="@+id/cv_test_inflate"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
 </LinearLayout>

@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Created by Siarhei Naliuka
@@ -14,13 +17,49 @@ import android.view.View;
 public class Margoja {
 
     /**
+     * Inflates and returns inflated view, without attaching it to any view group
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T inflate(Context context, @LayoutRes int layoutId) {
+        return (T) Margo.INSTANCE.inflate(context, layoutId);
+    }
+
+    /**
+     * Inflates and returns inflated view, allowing attach it to parent view group
+     */
+    public static  <T extends View> T inflate(@NonNull ViewGroup parent, @LayoutRes int layoutId) {
+        return inflate(parent, layoutId, false);
+    }
+
+    /**
+     * Inflates and returns inflated view, allowing attach it to parent view group
+     */
+    public static  <T extends View> T inflate(@NonNull ViewGroup parent, @LayoutRes int layoutId, boolean attachToRoot) {
+        return Margo.INSTANCE.inflate(parent, layoutId, attachToRoot);
+    }
+
+    /**
+     * Inflates and returns inflated view, allowing attach it to parent view group
+     */
+    public static  <T extends View> T inflateAndBind(@NonNull ViewGroup parent, @LayoutRes int layoutId, boolean attachToRoot) {
+        return Margo.INSTANCE.inflateAndBind(parent, layoutId, attachToRoot);
+    }
+
+    /**
+     * Inflates and returns inflated view, allowing attach it to parent view group
+     */
+    public static  <T extends View> T inflateAndBind(@NonNull Context parent, @LayoutRes int layoutId) {
+        return Margo.INSTANCE.inflateAndBind(parent, layoutId);
+    }
+
+    /**
      * Finds and injects all views, annotated with {@link by.nalivajr.margo.annonatations.InnerView}
      * or {@link by.nalivajr.margo.annonatations.BindView}
      * and also assigns supported listeners
      *
      * @param activity the target object
      */
-    public void bind(Activity activity) {
+    public static void bind(Activity activity) {
         Margo.INSTANCE.bind(activity);
     }
 
@@ -31,7 +70,7 @@ public class Margoja {
      *
      * @param view the target object
      */
-    public void bind(View view) {
+    public static void bind(View view) {
         Margo.INSTANCE.bind(view);
     }
 
@@ -42,7 +81,7 @@ public class Margoja {
      *
      * @param view the target object
      */
-    public void bind(Fragment fragment, View view) {
+    public static void bind(Fragment fragment, View view) {
         Margo.INSTANCE.bind(fragment, view);
     }
 
@@ -53,7 +92,7 @@ public class Margoja {
      *
      * @param view the target object
      */
-    public void bind(Object target, View view) {
+    public static void bind(Object target, View view) {
         Margo.INSTANCE.bind(target, view);
     }
 
@@ -65,7 +104,7 @@ public class Margoja {
      *
      * @param activity the activity to setContent view
      */
-    public void autoBind(Activity activity) {
+    public static void autoBind(Activity activity) {
         Margo.INSTANCE.autoBind(activity);
     }
 
@@ -78,7 +117,7 @@ public class Margoja {
      * @param layoutId the id of layout resource
      * @return the view, set as a content
      */
-    public void autoBind(Activity activity, int layoutId, boolean recursive) {
+    public static void autoBind(Activity activity, int layoutId, boolean recursive) {
         Margo.INSTANCE.autoBind(activity, layoutId, recursive);
     }
 
